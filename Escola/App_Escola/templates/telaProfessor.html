@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/telaProfessor.css' %}">
+
+    <title>Programação Web Back End</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-bar">
+               
+                <h1>Bem vindo(a) professor, cadastre sua turma!</h1>
+                <button>SAIR</button>
+               
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="titulos">
+           <p>Professor(a): Fernanda Fretes</p>  <!-- aqq o servidor vai ter que jogar o nome inserido no cadastro -->
+           <form action="/cadastrar_turma"><button type="submit" name="tela_cadastro">CADASTRAR</button></form>
+        </div>
+
+        <div class="tabela">
+            <table>
+
+                <tr>
+                    <th>Número</th>
+                    <th>Turma</th>
+                    <th>Ação</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>Desenvolvimento de Sistemas</td>
+                    <td>
+                        <button id="exclude">Excluir</button>
+                        <button id="view">Vizualizar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Mecatronica</td>
+                    <td>
+                        <button id="exclude">Excluir</button>
+                        <button id="view">Vizualizar</button>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+    </main>
+
+</body>
+</html>

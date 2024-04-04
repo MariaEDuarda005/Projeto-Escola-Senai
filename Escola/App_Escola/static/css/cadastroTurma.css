@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+* {
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+img{
+    height: 20px;
+    width: 20px;
+}
+
+.cadastrar_turma{
+    margin-left: auto;  
+    width: 150px;
+    height: 30px;
+    padding-top: 30px;
+}	
+.adm {
+    display: flex;
+    background-color: #6ba6c2;
+    height: 60px;
+    align-items: center;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.adm button.sair {
+    margin-left: auto;  
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+}
+
+.form-turma{
+    background-color: #e7ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 500px;
+    height: 500px;
+    border-radius: 30px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.nomes{
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.form{
+    background-color: #6ba6c2;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+label{
+    margin: 20px;
+}
+
+input{
+    width: 200px;
+    height: 25px;
+    border-radius: 6px;
+}
+
+.error-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    margin-top: 20px;
+}
+
+.botaocad{
+    margin: 25px;
+}
+
+.botaocad button{
+    border: none;
+    background-color: #ffffff;
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+table td{
+    font-size: 20px;
+}

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.adm {
+    display: flex;
+    background-color: #6ba6c2;
+    height: 60px;
+    align-items: center;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.adm button.sair {
+    margin-left: auto;  
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+h1{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.turmas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 120px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #e7ecef; 
+    width: 500px;
+    height: 300px;
+    border-radius: 10px;
+}
+input{
+    height: 30px;
+    width: 300px;
+    border-radius: 5px;
+}
+label{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+button{
+    width: 70px;
+    height: 25px;
+}
+.botao{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

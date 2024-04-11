@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cadastro.css' %}">
+    <title>Confirmar cadastro</title>
+</head>
+<body>
+    <div class="formulario">
+        <div class="text">
+
+            <div class="error-message">
+                {{error_message}}
+            </div>
+
+            <div class="welcome-message">
+                {{welcome_message}}
+            </div>
+
+            <form action="/confirmar_cadastro" method="post">
+                {% csrf_token %}
+                <p class="title">CADASTRO</p> 
+
+                <label for="name">Nome: </label>
+                <input type="text" id="nome" name="nome" required>
+          
+                <label for="email">E-mail: </label>
+                <input type="email" id="login" name="login" value="{{login}}"required>
+
+                <label for="password">Senha: </label>
+                <input type="password" name="senha" id="senha" required>
+
+                <button type="submit" id="enviar">Enviar</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

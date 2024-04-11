@@ -3,23 +3,31 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-
     <title>Programação Web Back End</title>
 </head>
+
 <body>
     <div class="formulario">
         <div class="text">
             <div class="error-message">
                 <!-- Mensagem de erro será inserida aqui -->
             </div>
-            <form action="/enviar_login" method="post">
+            {% if messages  %}
+                <ul class="messagem_do_servidor">
+                    {% for mesagem in messages %}
+                        <li {% if mesagem.tags %}class="alert alert-{{mesagem.tags}}"{% endif %}>{{mesagem}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form action="{% url "enviar_login" %}" method="post">{% csrf_token %}
                 <p class="title">LOGIN</p>   
-                <label for="email">E-mail: </label>
-                <input id="item" type="text" name="email" placeholder="Insira seu E-mail">
-                <!-- <input type="email" placeholder="Informe seu nome"> -->
-                <label for="password">Senha: </label>
-                <input id="item" type="password" name="senha" placeholder="Insira sua senha">
-                <!-- <input type="password" placeholder="Informe seu e-mail"> -->
+
+                <label for="email">E-mail:</label>
+                <input id="item" type="text" name="email" required>
+                
+                <label for="password">Senha:</label>
+                <input id="item" type="password" name="senha" required>
+                
                 <div class="botao">
                     <button id="enviar">Enviar</button> 
                 </div>
@@ -31,4 +39,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -7,7 +7,7 @@ class Professor(models.Model):
     senha = models.CharField(max_length=120)
     
     def __str__(self):
-        return self
+        return self.nome
     
 class Turma(models.Model):
     nome_turma = models.CharField(max_length=120)

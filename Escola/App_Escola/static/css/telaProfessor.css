@@ -109,6 +109,10 @@ td {
     border-bottom: 2px solid #495057;
 }
 
+button{
+    color: #ffff;
+}
+
 button#exclude {
     width: 100px;
     background-color:rgba(77,15,185,1);

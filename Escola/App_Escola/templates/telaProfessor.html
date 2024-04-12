@@ -2,59 +2,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/telaProfessor.css' %}">
-
-    <title>Programação Web Back End</title>
+    <title>Lista de Turmas do professor</title>
 </head>
-<body>
+
     <header>
         <nav>
             <div class="nav-bar">
-               
-                <h1>Bem vindo(a) professor, cadastre sua turma!</h1>
-                <button>SAIR</button>
-               
+                <h1>Bem vindo(a) professor: {{usuario_logado}}</h1>
+                <button><a href="../accounts/logout" style="color: #fff;">SAIR</a></button>
             </div>
         </nav>
     </header>
 
+<body onLoad="login();">
     <main>
         <div class="titulos">
-           <p>Professor(a): {{usuario_logado}}</p>  <!-- aqq o servidor vai ter que jogar o nome inserido no cadastro -->
-           <form action="/cadastrar_turma"><button type="submit" name="tela_cadastro">CADASTRAR</button></form>
+           <button><a href="/cad_turma/{{id_logado}}" style="color: #fff;">Cadastrar Turmas</a></button>
         </div>
+
+        {% if messages %}
+            <ul class="mensagem_do_servidor" style="padding: 24px; text-align:center; color: black;">
+                {% for mensagem in messages %}
+                   <li style="list-style: none;" {% if mensagem.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{mensagem}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <input type="hidden" name="id_logado" id="id_logado" value="{{id_logado}}"/>
+        <input type="hidden" name="nome_logado" id="nome_logado" value="{{usuario_logado}}">
+
 
         <div class="tabela">
             <table>
 
                 <tr>
-                    <th>Número</th>
+                    <th>Numero</th>
                     <th>Turma</th>
                     <th>Ação</th>
                 </tr>
 
-                <tr>
-                    <td>1</td>
-                    <td>Desenvolvimento de Sistemas</td>
-                    <td>
-                        <button id="exclude">Excluir</button>
-                        <button id="view">Vizualizar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <td>Mecatronica</td>
-                    <td>
-                        <button id="exclude">Excluir</button>
-                        <button id="view">Vizualizar</button>
-                    </td>
-                </tr>
+                {% for igs in turma_do_professor %}
+                    <tr>
+                        <td>{{igs.id}}</td>
+                        <td>{{igs.nome_turma}}</td>
+                        <td>
+                            <button id="exclude"><a href="javascript:valida_excluir({{igs.id}})" style="text-decoration: none; color: white;">Excluir</a></button>
+                            <button id="view"><a href="/ver_atividades?id_turma={{igs.id}}&who={{id_logado}}" style="text-decoration: none; color: white;">Vizualizar</a></button>
+                        </td>
+                    </tr>
+                {% endfor %}
 
             </table>
         </div>
-
     </main>
-
 </body>
+
+{% comment %} <script>
+    function login(){
+        const value_id_logado = localStorage.getItem('proj_escola_id_logado');
+        const value_nome_logado = localStorage.getItem('proj_escola_nome_logado');
+        let id_logado = document.getElementById("id_logado").value
+        if (value_id_logado == null) {
+
+            let nome_logado = document.getElementById("nome_logado").value
+            localStorage.setItem('proj_escola_id_logado', id_logado)
+            localStorage.setItem('proj_escola_nome_logado', nome_logado)
+        }
+        else
+        {
+          if (value_id_logado == null || value_id_logado != id_logado) {
+              window.alert('Você não está logado. Faça o Login antes de continuar.');
+              window.location.href='../';
+          }
+          else{
+            document.getElementById("id_logado").value = value_id_logado ;
+            document.getElementById("nome_logado").value = value_nome_logado ;
+          }
+        }
+    }
+
+</script>
+{% endcomment %}
+<script>
+
+    function valida_excluir(id){
+    // Primeiro, exibir a mensagem de confirmação
+    let userConfirmation = confirm("Você tem certeza de que deseja excluir este item?");
+
+    // Se o usuário confirmou a exclusão
+    if(userConfirmation) {
+
+        id=id;
+        endereco='/excluir_turma/' + id;
+        window.location.href=endereco;
+    }
+    // Se o usuário cancelou a exclusão
+    else {
+        console.log('Operação de exclusão cancelada.');
+    }
+    }
+
+
+</script> 
+
 </html>

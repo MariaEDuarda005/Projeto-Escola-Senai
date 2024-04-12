@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+header {
+    display: flex;
+    /* width: 100%; */
+    padding: 3vh;
+    justify-content: space-around;
+    align-items: center;
+    font-family: "Roboto-Condensed", sans-serif;
+    font-size: 20px;
+    color: #ffff;
+    background: linear-gradient(90deg, rgba(15,18,185,1) 14%, rgba(77,15,185,1) 48%, rgba(137,44,236,1) 94%);
+    filter: drop-shadow(5px 5px 5px rgba(0 0 0 / 40%));
+    height: 70px ;
+}
+
+button{
+    width: 100px;
+    height: 22px;
+}
+
+#nome_logado{
+    position: absolute;
+    top: 150px;
+    left: 10px;
+}
+
+#btnSair {
+    position: absolute;
+    top: 150px;
+    right: 10px;
+}
+
+
+section h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.form-content{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 500px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.botao_confirmar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    background-color: linear-gradient(90deg, rgba(15,18,185,1) 14%, rgba(77,15,185,1) 48%, rgba(137,44,236,1) 94%);
+
+}
+
+input{
+    width: 350px;
+    height: 30px;
+}
+
+.botao_confirmar button{
+    filter: drop-shadow(5px 5px 5px rgba(0 0 0 / 40%));
+}
+
+a{
+    padding-top: 20px;
+}

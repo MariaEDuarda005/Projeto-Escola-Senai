@@ -153,6 +153,26 @@ def lista_turma(request, id_professor):
     turmas_do_professor = Turma.objects.filter(id_professor=id_logado)
     print(turmas_do_professor)
     return render(request, 'telaProfessor.html', {'usuario_logado': usuario_logado,
-                                                        'turma_do_professor': turmas_do_professor,
-                                                        'id_logado': id_logado})
+                                                  'turma_do_professor': turmas_do_professor,
+                                                  'id_logado': id_logado})
             
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# def lista_atividade(request, id_turma):
+#     dados_turma = Turma.objects.filter(id=id_turma).values("atividade", "id")
+#     usuario_logado = dados_turma[0]
+#     usuario_logado = usuario_logado['atividade']
+#     id_logado = dados_turma[0]
+#     id_logado = id_logado['id']
+#     turmas_da_atividade = Turma.objects.filter(id_professor=id_logado)
+#     print(turmas_da_atividade)
+#     return render(request, 'turmaAtividade.html', {'usuario_logado': usuario_logado,
+#                                                   'turma': turmas_da_atividade,
+#                                                   'id_logado': id_logado})
+
+def lista_atividade(request, id_turma):
+    turma = Turma.objects.get(id=id_turma)
+    atividades_da_turma = Atividade.objects.filter(id_turma=turma)
+    return render(request, 'turmaAtividade.html', {'usuario_logado': turma.id_professor.nome,
+                                                    'turma': turma,
+                                                    'atividades_da_turma': atividades_da_turma})

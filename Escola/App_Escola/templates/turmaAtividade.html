@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/telaProfessor.css' %}">
+    <title>Lista de Turmas do professor</title>
+</head>
+
+    <header>
+        <nav>
+            <div class="nav-bar">
+                <h1>Bem vindo(a) professor: {{usuario_logado}}</h1>
+                <button><a href="../accounts/logout" style="color: #fff;">SAIR</a></button>
+            </div>
+        </nav>
+    </header>
+
+<body onLoad="login();">
+    <main>
+        {% if messages %}
+            <ul class="mensagem_do_servidor" style="padding: 24px; text-align:center; color: black;">
+                {% for mensagem in messages %}
+                   <li style="list-style: none;" {% if mensagem.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{mensagem}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <input type="hidden" name="id_logado" id="id_logado" value="{{id_logado}}"/>
+        <input type="hidden" name="nome_logado" id="nome_logado" value="{{usuario_logado}}">
+
+
+        <div class="tabela">
+            <table>
+
+                <tr>
+                    <th>Numero</th>
+                    <th>Atividade</th>
+                    <th>Ação</th>
+                </tr>
+
+                {% comment %} {% for atividade in turmas_da_atividade %}
+                    <tr>
+                        <td>{{atividade.id}}</td>
+                        <td>{{atividade.atividade}}</td>
+                        <td>
+                            <button id="exclude">Excluir</button>
+                        </td>
+                    </tr>
+                {% endfor %} {% endcomment %}
+
+                {% for atividade in atividades_da_turma %}
+                <tr>
+                    <td>{{ atividade.id }}</td>
+                    <td>{{ atividade.nome_atividade }}</td>
+                    <td>
+                        <button id="exclude">Excluir</button>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+        <p>Cadastrar a atividade referente a sua turma</p>
+        <input type="hidden"  name="id_professor" id="id_logado"  value="{{id_logado}}" />
+        <input type="text" id="nome_turma" name="nome_turma" value="" placeholder="Digite o nome da turma"/>
+
+        <div class="botoes">
+            <div class="botao_confirmar">
+                <button type="submit" class="btn_conf_cancel btn_confirmar">Cadastrar</button>
+            </div>
+        </div>
+        
+    </main>
+</body>
+</html>

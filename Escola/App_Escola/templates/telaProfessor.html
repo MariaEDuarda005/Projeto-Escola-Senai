@@ -49,8 +49,7 @@
                         <td>{{igs.nome_turma}}</td>
                         <td>
                             <button id="exclude"><a href="javascript:valida_excluir({{igs.id}})" style="text-decoration: none; color: white;">Excluir</a></button>
-                            <button id="view"><a href="/ver_atividades?id_turma={{igs.id}}&who={{id_logado}}" style="text-decoration: none; color: white;">Vizualizar</a></button>
-                        </td>
+                            <button id="view"><a href="/lista_atividade/{{igs.id}}" style="text-decoration: none; color: white;">Vizualizar</a></button>                        </td>
                     </tr>
                 {% endfor %}
 
@@ -85,7 +84,7 @@
 
 </script>
 {% endcomment %}
-<script>
+{% comment %} <script>
 
     function valida_excluir(id){
     // Primeiro, exibir a mensagem de confirmação
@@ -105,6 +104,6 @@
     }
 
 
-</script> 
+</script>  {% endcomment %}
 
 </html>

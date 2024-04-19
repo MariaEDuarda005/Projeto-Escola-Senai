@@ -158,35 +158,51 @@ def lista_turma(request, id_professor):
             
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+def excluir_turma(request, id_turma):
+    try:
+        with transaction.atomic():
+            turma = Turma.objects.get(pk=id_turma)
+            id_professor = turma.id_professor_id
+            print(id_professor)
+            turma.delete()
+
+            professor = Professor.objects.get(pk=id_professor)
+            turmas_professor = Turma.objects.filter(id_professor=id_professor)
+            print(f'>>>professor{id_professor}')
+
+        # return render(request, "telaProfessor.html", {
+        #     "turmas_professor": turmas_professor,
+        #     "id_logado": id_professor
+        return redirect('lista_turma', id_professor=id_professor)
+        
+    except Turma.DoesNotExist:
+        return HttpResponse("Turma not found.", status=404)
+
 def cad_atividade(request, id_turma):
-    turma_cadastrada = Turma.objects.filter(id=id_turma).values("nome_turma", "id")
-    turma_cadastrada = turma_cadastrada[0]
-    turma_cadastrada = turma_cadastrada['nome_turma']
-    print(turma_cadastrada, "turma logada")
-    return render(request, 'Cad_turma.html', {'turma_cadastrada': turma_cadastrada, 
-            'id_logado': id_turma})
+    turma = Turma.objects.get(pk=id_turma)
+    atividades_turma = Atividade.objects.filter(id_turma_id=id_turma)
+    if request.method == "POST":
+        descricao = request.POST["descricao"]
+        turma = Turma.objects.get(pk=id_turma)
 
-def salvar_atividade_nova(request):
-    if(request.method == 'POST'):
-        id_turma = Atividade.objects.get(id=id_turma)
-        atividades_da_turma = Atividade.objects.filter(id_turma=turma)
-        nome_atividade = request.POST.get('nome_atividade')
-        print("ID da turma recebido:", id_turma)  # Adicione esta linha para verificar o valor
-        turma = Turma.objects.get(id=id_turma)
-        grava_atividade = Atividade(
-            nome_atividade=nome_atividade,
-            id_turma=turma
-        )
+        # atomicidade, só entra nessa parte se o resto estiver correto
+        with transaction.atomic():
+            grava_atividade = Atividade(nome_atividade=descricao, id_turma=turma)
+            grava_atividade.save()
         
-        grava_atividade.save()
-        messages.info(request, nome_atividade + ' cadastrado com sucesso.')
-        
-        return redirect('lista_atividade', id_turma=id_turma)
+        atividades_turma = Atividade.objects.filter(id_turma_id = id_turma)
 
-def lista_atividade(request, id_turma):
-    turma = Turma.objects.get(id=id_turma)
-    atividades_da_turma = Atividade.objects.filter(id_turma=turma)
-    return render(request, 'turmaAtividade.html', {'usuario_logado': turma.id_professor.nome,
-                                                    'turma': turma,
-                                                    'atividades_da_turma': atividades_da_turma})
-    
+        return render(request, "turmaAtividade.html",{
+            # contexto, leva as informações para a pagina html
+            "id_turma": id_turma,
+            "atividades": atividades_turma
+        })
+       
+        
+    return render(request, "turmaAtividade.html", {
+        "id_turma": id_turma,
+        "atividades": atividades_turma
+    })
+
+def sair(request):
+    return render(request, 'login.html')

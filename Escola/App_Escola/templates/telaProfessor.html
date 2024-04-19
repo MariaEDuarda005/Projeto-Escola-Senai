@@ -12,7 +12,7 @@
         <nav>
             <div class="nav-bar">
                 <h1>Bem vindo(a) professor: {{usuario_logado}}</h1>
-                <button><a href="../accounts/logout" style="color: #fff;">SAIR</a></button>
+                <button><a href="{%url 'sair'%}" style="color: #fff;">SAIR</a></button>
             </div>
         </nav>
     </header>
@@ -48,8 +48,9 @@
                         <td>{{igs.id}}</td>
                         <td>{{igs.nome_turma}}</td>
                         <td>
-                            <button id="exclude"><a href="javascript:valida_excluir({{igs.id}})" style="text-decoration: none; color: white;">Excluir</a></button>
-                            <button id="view"><a href="/lista_atividade/{{igs.id}}" style="text-decoration: none; color: white;">Vizualizar</a></button>                        </td>
+                            <button id="exclude"><a href="{% url 'excluir_turma' id_turma=igs.id%}" style="text-decoration: none; color: white;">Excluir</a></button>
+                            <button id="view"><a href="{% url 'cad_atividade' id_turma=igs.id%}" style="text-decoration: none; color: white;">Vizualizar</a></button>                       
+                        </td>
                     </tr>
                 {% endfor %}
 

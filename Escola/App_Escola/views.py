@@ -158,17 +158,30 @@ def lista_turma(request, id_professor):
             
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# def lista_atividade(request, id_turma):
-#     dados_turma = Turma.objects.filter(id=id_turma).values("atividade", "id")
-#     usuario_logado = dados_turma[0]
-#     usuario_logado = usuario_logado['atividade']
-#     id_logado = dados_turma[0]
-#     id_logado = id_logado['id']
-#     turmas_da_atividade = Turma.objects.filter(id_professor=id_logado)
-#     print(turmas_da_atividade)
-#     return render(request, 'turmaAtividade.html', {'usuario_logado': usuario_logado,
-#                                                   'turma': turmas_da_atividade,
-#                                                   'id_logado': id_logado})
+def cad_atividade(request, id_turma):
+    turma_cadastrada = Turma.objects.filter(id=id_turma).values("nome_turma", "id")
+    turma_cadastrada = turma_cadastrada[0]
+    turma_cadastrada = turma_cadastrada['nome_turma']
+    print(turma_cadastrada, "turma logada")
+    return render(request, 'Cad_turma.html', {'turma_cadastrada': turma_cadastrada, 
+            'id_logado': id_turma})
+
+def salvar_atividade_nova(request):
+    if(request.method == 'POST'):
+        id_turma = Atividade.objects.get(id=id_turma)
+        atividades_da_turma = Atividade.objects.filter(id_turma=turma)
+        nome_atividade = request.POST.get('nome_atividade')
+        print("ID da turma recebido:", id_turma)  # Adicione esta linha para verificar o valor
+        turma = Turma.objects.get(id=id_turma)
+        grava_atividade = Atividade(
+            nome_atividade=nome_atividade,
+            id_turma=turma
+        )
+        
+        grava_atividade.save()
+        messages.info(request, nome_atividade + ' cadastrado com sucesso.')
+        
+        return redirect('lista_atividade', id_turma=id_turma)
 
 def lista_atividade(request, id_turma):
     turma = Turma.objects.get(id=id_turma)
@@ -176,3 +189,4 @@ def lista_atividade(request, id_turma):
     return render(request, 'turmaAtividade.html', {'usuario_logado': turma.id_professor.nome,
                                                     'turma': turma,
                                                     'atividades_da_turma': atividades_da_turma})
+    

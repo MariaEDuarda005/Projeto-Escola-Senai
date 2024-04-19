@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/telaProfessor.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/turmaAtividade.css' %}">
     <title>Lista de Turmas do professor</title>
 </head>
 
@@ -62,15 +62,36 @@
             </table>
         </div>
 
-        <p>Cadastrar a atividade referente a sua turma</p>
-        <input type="hidden"  name="id_professor" id="id_logado"  value="{{id_logado}}" />
-        <input type="text" id="nome_turma" name="nome_turma" value="" placeholder="Digite o nome da turma"/>
-
-        <div class="botoes">
-            <div class="botao_confirmar">
-                <button type="submit" class="btn_conf_cancel btn_confirmar">Cadastrar</button>
+        {% comment %} <form method="POST" action="{% url 'salvar_atividade_nova' %}">{% csrf_token %}
+            <div class="enviar_atividade">
+                <p>Cadastrar a atividade referente a sua turma</p>
+                <input type="hidden" name="id_turma" value="{{id_logado}}" />
+                <input type="text" id="nome_turma" name="nome_turma" value="" />
+    
+                <div class="botoes">
+                    <div class="botao_confirmar">
+                        <button type="submit" class="btn_conf">Cadastrar</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form> {% endcomment %}
+
+
+        <form method="POST" action="{% url 'salvar_atividade_nova' %}">
+            {% csrf_token %}
+            <div class="enviar_atividade">
+                <p>Cadastrar a atividade referente a sua turma</p>
+                <input type="hidden" name="id_turma" value="{{id_logado}}" />
+                <input type="text" id="nome_turma" name="nome_turma" value="" />
+        
+                <div class="botoes">
+                    <div class="botao_confirmar">
+                        <button type="submit" class="btn_conf">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
         
     </main>
 </body>

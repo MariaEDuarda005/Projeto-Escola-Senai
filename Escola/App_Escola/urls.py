@@ -10,5 +10,6 @@ urlpatterns = [
     path('lista_turma/<int:id_professor>', views.lista_turma, name='lista_turma'),
     path('excluir_turma/<int:id_turma>', views.excluir_turma, name='excluir_turma'),
     path('cad_atividade/<int:id_turma>', views.cad_atividade, name='cad_atividade'),
-    path('sair', views.sair, name='sair')
+    path('sair', views.sair, name='sair'),
+    path('atividade_arquivo/<str:nome_arquivo>', views.exibir_arquivo, name='exibir_arquivo')
 ]

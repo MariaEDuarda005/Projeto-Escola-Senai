@@ -4,6 +4,9 @@ from hashlib import sha256
 from .models import Professor, Turma, Atividade
 from django.db import connection, transaction
 from django.contrib import messages # Biblioteca de mensagens do Django 
+import os
+# mimetypes converte entre um nome de arquivo ou URL e o tipo MIME associado à extensão do arquivo. 
+import mimetypes
 
 # Create your views here.
 # def abre_login(request):
@@ -209,31 +212,25 @@ def cad_atividade(request, id_turma):
         "atividades": atividades_turma
     })
 
-# def cad_atividade(request):
-#     if request.method == 'POST':
-#         nome_atividade = request.POST.get('nome_atividade')
-#         id_turma = request.POST.get('id_turma')
-#         id_logado = request.POST.get('id_logado')
-#         turma = Turma.objects.get(id=id_turma)
-#         arquivo = request.FILES.get('arquivo') # Obtem o arquivo enviado pelo formulario
-#         grava_atividade = Atividade(
-#             nome_atividade=nome_atividade,
-#             id_turma=id_turma,
-#             arquivo=arquivo # Associa a atividade
-#         )
-#         grava_atividade.save()
-#         messages.info(request, 'Atividade' + nome_atividade + ' cadastrada com sucesso.')
-#         nome_da_turma = turma.nome_turma
-#         dados_professor = Professor.objects.filter(id=id_logado).values("nome", "id")
-#         usuario_logado = dados_professor[0]
-#         usuario_logado = usuario_logado['nome']
-#         atividades_da_turma = Atividade.objects.filter(id_turma=turma)
-        
-#         return render(request, 'turmaAtividade.html', 
-#                       {'usuario logado': usuario_logado,
-#                        'atividades_da_turma': atividades_da_turma,
-#                        'id_logado': id_logado,
-#                        'nome_da_turma': nome_da_turma})
-
 def sair(request):
     return render(request, 'login.html')
+
+
+def exibir_arquivo(request, nome_arquivo):
+    # os.path.join concatena a pasta atividade_arquivo/ com o nome do arquivo fornecido.
+    caminho_arquivo = os.path.join('atividade_arquivo/', nome_arquivo)
+    
+    # verificar se o arquivo existe
+    if os.path.exists(caminho_arquivo):
+        # r significa "ler" e b significa "em modo binário".Quando você abre um arquivo em modo binário ('rb'), fala que deseja ler o arquivo em seu formato binário, em vez de texto. 
+        with open(caminho_arquivo, 'rb') as arquivo:
+            conteudo = arquivo.read()
+            
+        tipo_mimetype, _ = mimetypes.guess_type(caminho_arquivo)
+        
+        resposta = HttpResponse(conteudo, content_type=tipo_mimetype)
+        
+        resposta['Content-Disposition'] = 'inline; filename="' + nome_arquivo + '"'
+        return resposta
+    else:
+        return HttpResponse('Arquivo não encontrado', status=404)

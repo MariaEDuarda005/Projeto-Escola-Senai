@@ -47,7 +47,8 @@
                     <td>{{ atividade.nome_atividade }}</td>
                     <td>
                         {% if atividade.arquivo %}
-                            <i class="fa-regular fa-file-lines"></i>
+                            {% comment %} <a href={{atividade.arquivo}}><i class="fa-regular fa-file-lines"></i></a> {% endcomment %}
+                            <a href="../../{{atividade.arquivo}}">Arquivo</a>
                         {% else %}
                             <p>Não existe arquivos anexados</p>
                         {% endif %}

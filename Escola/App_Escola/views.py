@@ -181,13 +181,18 @@ def excluir_turma(request, id_turma):
 def cad_atividade(request, id_turma):
     turma = Turma.objects.get(pk=id_turma)
     atividades_turma = Atividade.objects.filter(id_turma_id=id_turma)
+    arquivo = request.FILES.get('arquivo') # Obtem o arquivo enviado pelo formulario
     if request.method == "POST":
         descricao = request.POST["descricao"]
         turma = Turma.objects.get(pk=id_turma)
 
         # atomicidade, só entra nessa parte se o resto estiver correto
         with transaction.atomic():
-            grava_atividade = Atividade(nome_atividade=descricao, id_turma=turma)
+            grava_atividade = Atividade(
+                nome_atividade=descricao, 
+                id_turma=turma, 
+                arquivo=arquivo
+            )
             grava_atividade.save()
         
         atividades_turma = Atividade.objects.filter(id_turma_id = id_turma)
@@ -203,6 +208,32 @@ def cad_atividade(request, id_turma):
         "id_turma": id_turma,
         "atividades": atividades_turma
     })
+
+# def cad_atividade(request):
+#     if request.method == 'POST':
+#         nome_atividade = request.POST.get('nome_atividade')
+#         id_turma = request.POST.get('id_turma')
+#         id_logado = request.POST.get('id_logado')
+#         turma = Turma.objects.get(id=id_turma)
+#         arquivo = request.FILES.get('arquivo') # Obtem o arquivo enviado pelo formulario
+#         grava_atividade = Atividade(
+#             nome_atividade=nome_atividade,
+#             id_turma=id_turma,
+#             arquivo=arquivo # Associa a atividade
+#         )
+#         grava_atividade.save()
+#         messages.info(request, 'Atividade' + nome_atividade + ' cadastrada com sucesso.')
+#         nome_da_turma = turma.nome_turma
+#         dados_professor = Professor.objects.filter(id=id_logado).values("nome", "id")
+#         usuario_logado = dados_professor[0]
+#         usuario_logado = usuario_logado['nome']
+#         atividades_da_turma = Atividade.objects.filter(id_turma=turma)
+        
+#         return render(request, 'turmaAtividade.html', 
+#                       {'usuario logado': usuario_logado,
+#                        'atividades_da_turma': atividades_da_turma,
+#                        'id_logado': id_logado,
+#                        'nome_da_turma': nome_da_turma})
 
 def sair(request):
     return render(request, 'login.html')

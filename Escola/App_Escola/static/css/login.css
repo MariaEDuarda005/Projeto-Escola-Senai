@@ -5,6 +5,7 @@
 }
 
 body {
+    background-image: url("../imagens/stacked-waves-haikei.svg");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +29,7 @@ form{
 }
 
 .formulario {
-    background-color: #e7ecef;
+    background-color: #fdf6ff;
     display: flex;
     justify-content: center;
     align-items: center;

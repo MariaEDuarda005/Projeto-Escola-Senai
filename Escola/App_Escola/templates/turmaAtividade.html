@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/turmaAtividade.css' %}">
+    <script src="https://kit.fontawesome.com/853fc98f91.js" crossorigin="anonymous"></script>
     <title>Lista de Turmas do professor</title>
 </head>
 
@@ -12,7 +13,7 @@
         <nav>
             <div class="nav-bar">
                 <h1>Bem vindo(a) professor: {{usuario_logado}}</h1>
-                <button><a href="../accounts/logout" style="color: #fff;">SAIR</a></button>
+                <button><a href="{%url 'sair'%}" style="color: #fff;">SAIR</a></button>
             </div>
         </nav>
     </header>
@@ -36,6 +37,7 @@
                 <tr>
                     <th>Numero</th>
                     <th>Atividade</th>
+                    <th>Arquivo</th>
                 </tr>
 
 
@@ -43,18 +45,28 @@
                 <tr>
                     <td>{{ atividade.id }}</td>
                     <td>{{ atividade.nome_atividade }}</td>
+                    <td>
+                        {% if atividade.arquivo %}
+                            <i class="fa-regular fa-file-lines"></i>
+                        {% else %}
+                            <p>Não existe arquivos anexados</p>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
 
             </table>
         </div>
 
-        <form method="POST" action="{% url 'cad_atividade' id_turma=id_turma%}">
+        <form method="POST" action="{% url 'cad_atividade' id_turma=id_turma%}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="enviar_atividade">
                 <p>Cadastrar a atividade referente a sua turma</p>
-                <input style="height: 30px; width: 400px; margin-top: 20px;" type="text" id="descricao" name="descricao"/>
-    
+                <input style="height: 30px; width: 400px; margin-top: 20px; border-radius: 5px;" type="text" id="descricao" name="descricao"/>
+                <input type="hidden" name="id_turma" id="id_turma" value="{{id_turma}}"/>
+                <input type="hidden" name="id_logado" id="id_logado" value="{{id_logado}}"/>
+                <input style="margin-top: 15px;" type="file" name="arquivo" id="arquivo" value="Caminho do arquivo"/>
+
                 <div class="botoes">
                     <div class="botao_confirmar" >
                         <button type="submit" class="btn_conf">Cadastrar</button>

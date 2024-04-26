@@ -148,3 +148,11 @@ button#exclude:hover {
 a{
     text-decoration: none;
 }
+
+.exportar_dados button {
+    background: #7209b7;
+    width: 150px;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+}

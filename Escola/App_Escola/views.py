@@ -7,6 +7,7 @@ from django.contrib import messages # Biblioteca de mensagens do Django
 import os
 # mimetypes converte entre um nome de arquivo ou URL e o tipo MIME associado à extensão do arquivo. 
 import mimetypes
+import openpyxl
 
 # Create your views here.
 # def abre_login(request):
@@ -203,13 +204,15 @@ def cad_atividade(request, id_turma):
         return render(request, "turmaAtividade.html",{
             # contexto, leva as informações para a pagina html
             "id_turma": id_turma,
-            "atividades": atividades_turma
+            "atividades": atividades_turma,
+            "usuario_logado": turma.id_professor.nome
         })
        
         
     return render(request, "turmaAtividade.html", {
         "id_turma": id_turma,
-        "atividades": atividades_turma
+        "atividades": atividades_turma,
+        "usuario_logado": turma.id_professor.nome
     })
 
 def sair(request):
@@ -234,3 +237,56 @@ def exibir_arquivo(request, nome_arquivo):
         return resposta
     else:
         return HttpResponse('Arquivo não encontrado', status=404)
+    
+    
+def exportar_para_excel_turmas(request):
+    # Consulta para obter os dados que deseja exportar
+    dados_turma = Turma.objects.all()
+    
+    # Criando um novo arquivo Excel
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    # nomear o arquivo quando extraido
+    sheet.title = "Turmas"
+    
+    # Escrevendo cabeçalhos
+    sheet['A1'] = "ID"
+    sheet['B1'] = "Nome da turma"
+    
+    # Escrevendo os dados
+    for index, turma in enumerate(dados_turma, start=2):
+        sheet[f"A{index}"] = turma.id
+        sheet[f"B{index}"] = turma.nome_turma
+        
+    # Salvando o arquivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=turma.xlsx'
+    workbook.save(response)
+    return response
+
+def exportar_para_excel_Atividades(request):
+    # Consulta para obter os dados que deseja exportar
+    dados_atividades = Atividade.objects.all()
+    
+    # Criando um novo arquivo Excel
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    # nomear o arquivo quando extraido
+    sheet.title = "Atividades"
+    
+    # Escrevendo cabeçalhos
+    sheet['A1'] = "ID"
+    sheet['B1'] = "Nome da Atividade"
+    sheet['C1'] = "Turma"
+    
+    # Escrevendo os dados
+    for index, atividade in enumerate(dados_atividades, start=2):
+        sheet[f"A{index}"] = atividade.id
+        sheet[f"B{index}"] = atividade.nome_atividade
+        sheet[f"C{index}"] = atividade.id_turma.nome_turma
+        
+    # Salvando o arquivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=atividades.xlsx'
+    workbook.save(response)
+    return response

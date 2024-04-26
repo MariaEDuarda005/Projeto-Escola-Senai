@@ -12,13 +12,13 @@
     <header>
         <nav>
             <div class="nav-bar">
-                <h1>Bem vindo(a) professor: {{usuario_logado}}</h1>
+                <h1>Bem vindo(a) professor {{usuario_logado}}</h1>
                 <button><a href="{%url 'sair'%}" style="color: #fff;">SAIR</a></button>
             </div>
         </nav>
     </header>
 
-<body onLoad="login();">
+<body>
     <main>
         {% if messages %}
             <ul class="mensagem_do_servidor" style="padding: 24px; text-align:center; color: black;">
@@ -30,6 +30,13 @@
         <input type="hidden" name="id_logado" id="id_logado" value="{{id_logado}}"/>
         <input type="hidden" name="nome_logado" id="nome_logado" value="{{usuario_logado}}">
 
+        <div class="dados_excel">
+            <a href="{% url 'exportar_excel_atividade' %}" download style="display: flex; align-content: center;
+            justify-content: center;align-items: center;padding-top: 15px;">
+                <button class="exportar_dados" style="background: #7209b7;width: 250px;
+                height: 30px;border-radius: 15px;border: none;">Exportar para Excel</button>
+            </a>
+        </div>
 
         <div class="tabela">
             <table>
@@ -47,10 +54,11 @@
                     <td>{{ atividade.nome_atividade }}</td>
                     <td>
                         {% if atividade.arquivo %}
-                            {% comment %} <a href={{atividade.arquivo}}><i class="fa-regular fa-file-lines"></i></a> {% endcomment %}
-                            <a href="../../{{atividade.arquivo}}">Arquivo</a>
+                            <a href={{atividade.arquivo}}><i class="fa-regular fa-file-lines"></i></a>
+                            {% comment %} <a href="../../{{atividade.arquivo}}">Arquivo</a> {% endcomment %}
                         {% else %}
-                            <p>Não existe arquivos anexados</p>
+                            <p><i class="fa-regular fa-file-excel"></i></p>
+                            {% comment %} <p>Não existe arquivos anexados</p> {% endcomment %}
                         {% endif %}
                     </td>
                 </tr>
@@ -75,6 +83,8 @@
                 </div>
             </div>
         </form> 
+
+        
 
     </main>
 </body>

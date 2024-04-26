@@ -33,7 +33,6 @@
         <input type="hidden" name="id_logado" id="id_logado" value="{{id_logado}}"/>
         <input type="hidden" name="nome_logado" id="nome_logado" value="{{usuario_logado}}">
 
-
         <div class="tabela">
             <table>
 
@@ -55,6 +54,14 @@
                 {% endfor %}
 
             </table>
+        </div>
+
+        <div class="dados_excel">
+            <a href="{% url 'exportar_excel_turma' %}" download style="display: flex; align-content: center;
+            justify-content: center;align-items: center;padding: 45px;">
+                <button class="exportar_dados" style="background: #7209b7;width: 250px;
+                height: 30px;border-radius: 15px;border: none;">Exportar para Excel</button>
+            </a>
         </div>
     </main>
 </body>

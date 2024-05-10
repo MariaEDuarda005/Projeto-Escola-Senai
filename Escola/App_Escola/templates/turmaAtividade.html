@@ -54,7 +54,7 @@
                     <td>{{ atividade.nome_atividade }}</td>
                     <td>
                         {% if atividade.arquivo %}
-                            <a href={{atividade.arquivo}}><i class="fa-regular fa-file-lines"></i></a>
+                            <a href="../../{{atividade.arquivo}}"><i class="fa-regular fa-file-lines"></i></a>
                             {% comment %} <a href="../../{{atividade.arquivo}}">Arquivo</a> {% endcomment %}
                         {% else %}
                             <p><i class="fa-regular fa-file-excel"></i></p>
@@ -68,7 +68,7 @@
         </div>
 
         <form method="POST" action="{% url 'cad_atividade' id_turma=id_turma%}" enctype="multipart/form-data">
-            {% csrf_token %}
+            {% csrf_token %} 
             <div class="enviar_atividade">
                 <p>Cadastrar a atividade referente a sua turma</p>
                 <input style="height: 30px; width: 400px; margin-top: 20px; border-radius: 5px;" type="text" id="descricao" name="descricao"/>

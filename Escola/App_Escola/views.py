@@ -68,7 +68,9 @@ def abre_index(request):
     else:
         print("Achei Obama", verifica_populado)
         
-    return render(request, 'login.html')
+    usuario_logado = request.user.username 
+    return render(request, 'index.html', {'usuario_logado': usuario_logado})
+    #return render(request, 'login.html')
         
 def enviar_login(request):
     if (request.method == 'POST'):
@@ -121,6 +123,8 @@ def confirmar_cadastro(request):
         mensagem = "OLÁ PROFESSOR " + nome + ", SEJA BEM VINDO"
         print(mensagem)
         return HttpResponse(mensagem) 
+        # return render(request, 'telaProfessor.html')
+            
         
 def cad_turma(request, id_professor):
     usuario_logado = Professor.objects.filter(id=id_professor).values("nome", "id")
@@ -230,6 +234,7 @@ def exibir_arquivo(request, nome_arquivo):
             conteudo = arquivo.read()
             
         tipo_mimetype, _ = mimetypes.guess_type(caminho_arquivo)
+        print(tipo_mimetype)
         
         resposta = HttpResponse(conteudo, content_type=tipo_mimetype)
         
